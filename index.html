@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+</head>
+
+<body>
+    <div class="window">
+        <div class="images" id='images'>
+            <img src="./1.jpg" alt="">
+            <img src="./2.jpg" alt="">
+            <img src="./3.jpg" alt="">
+        </div>
+    </div>
+    <div class="buttons">
+        <button>按钮1</button>
+        <button>按钮2</button>
+        <button>按钮3</button>
+    </div>
+
+    <script>
+        var buttons = $('.buttons >button')
+        var n = 0
+        for (let i = 0; i < buttons.length; i++) {
+            $(buttons[i]).on('click', function () {
+                $(images).css({
+                    transform: 'translateX(' + $(buttons[i]).index() * -300 + 'px)'
+                })
+                $(buttons[i]).addClass('red').siblings('.red').removeClass('red')
+                n = $(buttons[i]).index()
+            })
+        }
+
+
+        var setTimer = function () {
+            return setInterval(() => {
+                $(buttons[n % buttons.length]).trigger('click')
+                n++
+            }, 1000)
+        }
+        var timerId = setTimer()
+        $('.window').on('mouseenter', function () {
+            clearInterval(timerId)
+        })
+        $('.window').on('mouseleave', function () {
+            timerId = setTimer()
+        })
+
+
+
+
+    </script>
+
+</body>
+
+</html>
