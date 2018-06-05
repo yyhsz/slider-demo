@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="buttons">
-        <button>按钮1</button>
+        <button class="red">按钮1</button>
         <button>按钮2</button>
         <button>按钮3</button>
     </div>
@@ -28,16 +28,14 @@
         var buttons = $('.buttons >button')
         var n = 0
         for (let i = 0; i < buttons.length; i++) {
-            $(buttons[i]).on('click', function () {
+            $(buttons[i]).on('click', function (x) {
                 $(images).css({
-                    transform: 'translateX(' + $(buttons[i]).index() * -300 + 'px)'
+                    transform: 'translateX(' + $(x.currentTarget).index() * -300 + 'px)'
                 })
-                $(buttons[i]).addClass('red').siblings('.red').removeClass('red')
-                n = $(buttons[i]).index()
+                $(x.currentTarget).addClass('red').siblings('.red').removeClass('red')
+                n = $(x.currentTarget).index()
             })
         }
-
-
         var setTimer = function () {
             return setInterval(() => {
                 $(buttons[n % buttons.length]).trigger('click')
